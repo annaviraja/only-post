@@ -1,0 +1,46 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            if('geolocation' in navigator){
+                console.log('geolocationavailable');
+                navigator.geolocation.getCurrentPosition(function(position){
+                   const lat = position.coords.latitude;
+                   const lon = position.coords.longitude;
+                   document.getElementById('latitude').textContent=lat;
+                  
+                   document.getElementById('longitude').textContent=lon;
+                  
+                   // console.log(position);
+                   const data = {lat,lon};
+                   const options={
+                       method:'POST',
+                       headers:{
+                  'Content-Type':'application/json'
+                       },
+                       body:JSON.stringify(data)
+                   };
+                   fetch('/api',options).then(response=>
+                {
+                    console.log(response);
+                });
+                   
+                });
+            }else{
+                console.log('geolocation not available');
+            }
+        </script>
+        <h1>
+            hi
+        </h1>
+        <p>
+
+            hello
+        </p>
+        <p>latitude:<span id="latitude"></span>&deg;<br>
+            <p>longitude:<span id="longitude"></span>&deg;<br>
+        </p>
+    </body>
+</html>
